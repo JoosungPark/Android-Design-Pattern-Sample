@@ -2,21 +2,35 @@ package com.sdop.factoryexample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.widget.AppCompatTextView
-import com.sdop.factoryexample.model.BradFactory
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.sdop.factoryexample.model.Bread
+import com.sdop.factoryexample.model.BreadFactory
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val textView: AppCompatTextView = findViewById(R.id.textView)
-
-        val breadFactory = BradFactory()
-        val bread = breadFactory.getBread("BAG")
-
-        bread?.also {
-            textView.text = it.name
-        }
+        val breadRecyclerView: RecyclerView = findViewById(R.id.breadRecyclerView)
+        breadRecyclerView.layoutManager = LinearLayoutManager(this)
+        breadRecyclerView.adapter = BreadRecyclerViewAdapter(breadList)
     }
+
+    private val breadFactory = BreadFactory()
+
+    private val breadList: List<Bread>
+        get() {
+            val breadList = mutableListOf<Bread>()
+
+            getBread("BRI")?.also { breadList.add(it) }
+            getBread("BAG")?.also { breadList.add(it) }
+            getBread("ROL")?.also { breadList.add(it) }
+
+            return breadList
+        }
+
+    private fun getBread(breadType: String): Bread? = breadFactory.getBread(breadType)
+
 }
