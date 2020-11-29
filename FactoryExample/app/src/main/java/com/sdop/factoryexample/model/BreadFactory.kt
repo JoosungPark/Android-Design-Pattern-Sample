@@ -1,6 +1,6 @@
 package com.sdop.factoryexample.model
 
-class BradFactory {
+class BreadFactory {
     fun getBread(breadType: String): Bread? {
         if (breadType == "BRI") {
             return Brioche()
