@@ -1,15 +1,15 @@
 package com.sdop.factoryexample.model
 
 class BreadFactory {
-    fun getBread(breadType: String): Bread? {
-        if (breadType == "BRI") {
-            return Brioche()
-        } else if (breadType == "BAG") {
-            return Baguette()
-        } else if (breadType == "ROL") {
-            return Roll()
-        } else {
-            return null
-        }
+    fun getBread(breadType: BreadType): Bread = when (breadType) {
+        is BreadType.Brioche -> Brioche()
+        is BreadType.Baguette -> Baguette()
+        is BreadType.Roll -> Roll()
     }
+}
+
+sealed class BreadType {
+    object Brioche : BreadType()
+    object Baguette : BreadType()
+    object Roll : BreadType()
 }

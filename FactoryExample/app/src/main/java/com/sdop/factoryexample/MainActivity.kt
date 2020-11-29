@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sdop.factoryexample.model.Bread
 import com.sdop.factoryexample.model.BreadFactory
+import com.sdop.factoryexample.model.BreadType
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,13 +25,12 @@ class MainActivity : AppCompatActivity() {
         get() {
             val breadList = mutableListOf<Bread>()
 
-            getBread("BRI")?.also { breadList.add(it) }
-            getBread("BAG")?.also { breadList.add(it) }
-            getBread("ROL")?.also { breadList.add(it) }
+            breadFactory.getBread(BreadType.Brioche).also { breadList.add(it) }
+            breadFactory.getBread(BreadType.Baguette).also { breadList.add(it) }
+            breadFactory.getBread(BreadType.Roll).also { breadList.add(it) }
 
             return breadList
         }
 
-    private fun getBread(breadType: String): Bread? = breadFactory.getBread(breadType)
 
 }
